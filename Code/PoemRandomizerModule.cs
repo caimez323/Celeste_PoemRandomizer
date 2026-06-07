@@ -1,15 +1,18 @@
 using Celeste.Mod;
+using System;
 
 namespace Celeste.Mod.PoemRandomizer {
     public class PoemRandomizerModule : EverestModule {
-        public static PoemRandomizerModule Instance { get; private set; }
+        public static PoemRandomizerModule Instance;
+        public override Type SettingsType => typeof(PoemRandomizerSettings);
+        public static PoemRandomizerSettings Settings => (PoemRandomizerSettings) Instance._Settings;
 
         public PoemRandomizerModule() {
             Instance = this;
         }
 
         public override void Load() {
-            Logger.Log(LogLevel.Info, "PoemRandomizer", "Module Load appelé");
+            Instance = this;
             PoemRandomizerHook.Load();
         }
 
