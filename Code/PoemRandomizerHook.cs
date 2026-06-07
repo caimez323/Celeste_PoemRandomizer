@@ -52,7 +52,7 @@ namespace Celeste.Mod.PoemRandomizer {
                 "C'est ciao",
                 "Elle est où Jeanne ?",
                 "Cette anecdote elle est vraie ou elle est fausse ?",
-                "C'est pas bien grand 1m30. \n Faut manger de la soupe."
+                "Vous mesurez 1m40. \n Faut manger de la soupe."
             },
         };
 
