@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>PoemRandomizer</AssemblyName>
+    <RootNamespace>Celeste.Mod.PoemRandomizer</RootNamespace>
+    <LangVersion>latest</LangVersion>
+
+    <!-- Détection auto si le projet est dans Mods/PoemRandomizer/Source/ -->
+    <CelestePrefix Condition="'$(CelestePrefix)' == '' And Exists('..\..\..\Celeste.dll')">..\..\..</CelestePrefix>
+    <!-- Fallback pour les contributeurs sans Celeste installé -->
+    <CelestePrefix Condition="'$(CelestePrefix)' == ''">lib-stripped</CelestePrefix>
+
+    <ZippedFiles>..\everest.yaml;..\bin\**\*.*</ZippedFiles>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <PackageReference PrivateAssets="all" ExcludeAssets="runtime" />
+    <Reference Private="false" />
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoMod.RuntimeDetour" Version="25.0.2" PrivateAssets="all" ExcludeAssets="runtime" />
+    <PackageReference Include="CelesteMod.Publicizer" Version="*" CelesteAssembly="$(CelestePrefix)\Celeste.dll" />
+    <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll" />
+    <Reference Include="$(CelestePrefix)\FNA.dll" />
+  </ItemGroup>
+
+  <!-- Copie le .dll dans ../bin après build -->
+  <Target Name="CopyFiles" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll" DestinationFolder="..\bin" />
+  </Target>
+</Project>
